@@ -1,9 +1,14 @@
 import 'dart:io';
-import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 
 class ImageContainer extends StatelessWidget {
-  const ImageContainer({Key? key, required this.screenWidth, required this.onTap, required this.file, required this.onLongPress}) : super(key: key);
+  const ImageContainer(
+      {Key? key,
+      required this.screenWidth,
+      required this.onTap,
+      required this.file,
+      required this.onLongPress})
+      : super(key: key);
   final double screenWidth;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
@@ -20,20 +25,25 @@ class ImageContainer extends StatelessWidget {
       onLongPress: onLongPress,
       child: Container(
         height: screenWidth < 600
-            ? imageSizeS : screenWidth < 1200
-            ? imageSizeM : screenWidth < 1600
-            ? imageSizeL : imageSizeXL,
+            ? imageSizeS
+            : screenWidth < 1200
+                ? imageSizeM
+                : screenWidth < 1600
+                    ? imageSizeL
+                    : imageSizeXL,
         width: screenWidth < 600
-            ? imageSizeS : screenWidth < 1200
-            ? imageSizeM : screenWidth < 1600
-            ? imageSizeL : imageSizeXL,
+            ? imageSizeS
+            : screenWidth < 1200
+                ? imageSizeM
+                : screenWidth < 1600
+                    ? imageSizeL
+                    : imageSizeXL,
         decoration: BoxDecoration(
           color: const Color(0xFFF7F7F8),
           borderRadius: BorderRadius.circular(4),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: Image.file(file)
-                .image,
+            image: Image.file(file).image,
           ),
         ),
       ),

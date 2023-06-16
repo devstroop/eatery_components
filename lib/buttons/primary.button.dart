@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({
-    super.key,
-    required this.color,
-    required this.child,
-    this.onPressed
-  });
+  const PrimaryButton(
+      {Key? key, required this.color, required this.child, this.onPressed})
+      : super(key: key);
 
   final Color color;
   final Widget child;
@@ -22,7 +18,6 @@ class PrimaryButton extends StatelessWidget {
           primary: color,
         ),
         child: child,
-
       ),
     );
   }

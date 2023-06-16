@@ -6,16 +6,17 @@ import '../borders/dotted_border/dotted_border.dart';
 import '../bottomsheets/image_library.bottomsheet.dart';
 
 class UploadButton extends StatefulWidget {
-  UploadButton({Key? key,
-    this.path,
-    this.onChanged,
-    this.primaryColor = const Color(0xFF30A8CF),
-    this.secondaryColor = const Color(0xFF2F2F2F),
-    this.title,
-    this.label,
-    required this.uploadType})
+  const UploadButton(
+      {Key? key,
+      this.filePath,
+      this.onChanged,
+      this.primaryColor = const Color(0xFF30A8CF),
+      this.secondaryColor = const Color(0xFF2F2F2F),
+      this.title,
+      this.label,
+      required this.uploadType})
       : super(key: key);
-  late String? path;
+  final String? filePath;
   final Function(String? path)? onChanged;
   final Color primaryColor;
   final Color secondaryColor;
@@ -28,6 +29,7 @@ class UploadButton extends StatefulWidget {
 }
 
 class _UploadButtonState extends State<UploadButton> {
+  String? filePath;
   @override
   void initState() {
     super.initState();
@@ -36,33 +38,31 @@ class _UploadButtonState extends State<UploadButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          showModalBottomSheet(
-              context: context,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
-                ),
-              ),
-              builder: (context) =>
-              widget.uploadType == UploadType.image
-                  ? ImageLibraryBottomSheet(context, (path) {
-                widget.path = path;
-                if (widget.onChanged != null) {
-                  widget.onChanged!(path);
-                }
-                setState(() {});
-              })
-                  : UploadFileBottomSheet(context, (path) {
-                widget.path = path;
-                if (widget.onChanged != null) {
-                  widget.onChanged!(path);
-                }
-                setState(() {});
-              })),
+      onTap: () => showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+              bottomLeft: Radius.circular(0),
+              bottomRight: Radius.circular(0),
+            ),
+          ),
+          builder: (context) => widget.uploadType == UploadType.image
+              ? ImageLibraryBottomSheet(context, (path) {
+                  filePath = path;
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(path);
+                  }
+                  setState(() {});
+                })
+              : UploadFileBottomSheet(context, (path) {
+                  filePath = path;
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(path);
+                  }
+                  setState(() {});
+                })),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,38 +116,43 @@ class _UploadButtonState extends State<UploadButton> {
               ),
             ],
           ),
-          if (widget.path != null)
+          if (widget.filePath != null)
             FutureBuilder<String>(
-              future: FileServices.absImage(widget.path!),
+              future: FileServices.absImage(widget.filePath!),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if(!snapshot.hasData){
+                if (!snapshot.hasData) {
                   return const SizedBox.shrink();
                 } else {
                   return Container(
                     height: 84,
                     width: 84,
                     decoration: BoxDecoration(
-                      color: widget.uploadType != UploadType.image ? const Color(
-                          0xFFF7F7F8) : null,
+                      color: widget.uploadType != UploadType.image
+                          ? const Color(0xFFF7F7F8)
+                          : null,
                       borderRadius: BorderRadius.circular(4),
                       image: widget.uploadType == UploadType.image
                           ? DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.file(File(snapshot.data!)).image,
-                      )
+                              fit: BoxFit.cover,
+                              image: Image.file(File(snapshot.data!)).image,
+                            )
                           : null,
                     ),
                     child: Stack(
                       children: [
-                        if(widget.uploadType != UploadType.image)
-                          Center(child: Icon(Icons.file_present_rounded, size: 64,
-                            color: widget.primaryColor.withOpacity(0.50),)),
+                        if (widget.uploadType != UploadType.image)
+                          Center(
+                              child: Icon(
+                            Icons.file_present_rounded,
+                            size: 64,
+                            color: widget.primaryColor.withOpacity(0.50),
+                          )),
                         Positioned(
                             top: 0,
                             right: 0,
                             child: InkWell(
                               onTap: () {
-                                widget.path = null;
+                                filePath = null;
                                 if (widget.onChanged != null) {
                                   widget.onChanged!(null);
                                 }
@@ -173,7 +178,6 @@ class _UploadButtonState extends State<UploadButton> {
                 }
               },
             ),
-
         ],
       ),
     );
