@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  uicons: ^1.0.1
   path: ^1.8.1
   http: ^0.13.4
   image_picker: ^0.8.5+3

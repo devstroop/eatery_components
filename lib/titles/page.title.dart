@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class PageTitle extends StatelessWidget {
   final String title;
   final String? subtitle;
-  const PageTitle({Key? key, required this.title, this.subtitle}) : super(key: key);
+  const PageTitle({Key? key, required this.title, this.subtitle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,7 @@ class PageTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
+        const SizedBox(height: 20),
         Text(
           title,
           style: const TextStyle(
@@ -19,7 +21,7 @@ class PageTitle extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        if(subtitle != null)
+        if (subtitle != null)
           Text(
             subtitle!,
             style: const TextStyle(

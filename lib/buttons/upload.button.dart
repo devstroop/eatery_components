@@ -4,7 +4,7 @@ import 'package:eatery_services/eatery_services.dart';
 import 'package:flutter/material.dart';
 import '../borders/dotted_border/dotted_border.dart';
 import '../bottomsheets/image_library.bottomsheet.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uicons/uicons.dart';
 
 class UploadButton extends StatefulWidget {
   const UploadButton(
@@ -39,9 +39,9 @@ class _UploadButtonState extends State<UploadButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(9)),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           color: const Color(0xFFF0F0F0),
           border: Border.all(color: const Color(0xFFF0F0F0), width: 1)),
       child: InkWell(
@@ -79,23 +79,23 @@ class _UploadButtonState extends State<UploadButton> {
                 DottedBorder(
                   borderType: BorderType.rRect,
                   dashPattern: const [6, 3],
-                  radius: const Radius.circular(9),
+                  radius: const Radius.circular(12),
                   color: const Color(0xFF576060),
-                  strokeWidth: 1,
+                  strokeWidth: 2,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(9)),
                     child: SizedBox(
                       width: 84,
                       height: 84,
-                      child: SvgPicture.asset(
-                        'assets/vectors/add_a_photo.svg',
-                        fit: BoxFit.contain,
+                      child: Icon(
+                        UIcons.regularStraight.upload,
+                        size: 18,
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                   child: Container(
                     height: 100,
                     decoration: const BoxDecoration(),
@@ -108,7 +108,13 @@ class _UploadButtonState extends State<UploadButton> {
                           Text(
                             widget.label!,
                             style: TextStyle(
-                                fontSize: 12, color: widget.secondaryColor),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: widget.secondaryColor),
+                          ),
+                        if (widget.label != null)
+                          const SizedBox(
+                            height: 2,
                           ),
                         Text(
                           widget.title ??
@@ -154,7 +160,7 @@ class _UploadButtonState extends State<UploadButton> {
                           if (widget.uploadType != UploadType.image)
                             Center(
                                 child: Icon(
-                              Icons.file_present_rounded,
+                              UIcons.regularStraight.file,
                               size: 64,
                               color: widget.primaryColor.withOpacity(0.50),
                             )),
@@ -176,8 +182,8 @@ class _UploadButtonState extends State<UploadButton> {
                                     borderRadius: BorderRadius.circular(8),
                                     color: const Color(0xFFB63A3A),
                                   ),
-                                  child: const Icon(
-                                    Icons.close,
+                                  child: Icon(
+                                    UIcons.regularStraight.exit,
                                     size: 12,
                                     color: Colors.white,
                                   ),
