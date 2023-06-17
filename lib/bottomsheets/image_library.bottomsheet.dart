@@ -3,6 +3,7 @@ import 'package:eatery_services/eatery_services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uicons/uicons.dart';
 import '../containers/image.container.dart';
 import '../others/bottom_sheet.grip.dart';
 import '../titles/page.title.dart';
@@ -16,7 +17,8 @@ class ImageLibraryBottomSheet extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ImageLibraryBottomSheet> createState() => _ImageLibraryBottomSheetState();
+  State<ImageLibraryBottomSheet> createState() =>
+      _ImageLibraryBottomSheetState();
 }
 
 class _ImageLibraryBottomSheetState extends State<ImageLibraryBottomSheet> {
@@ -38,8 +40,7 @@ class _ImageLibraryBottomSheetState extends State<ImageLibraryBottomSheet> {
               directory: await FileServices.libraryPath())
           .then((value) {
         if (value != null) {
-
-          widget.action(path.basename(value.path));
+          widget.action(path.relative(value.path));
           Navigator.pop(context);
         }
       });
@@ -54,10 +55,7 @@ class _ImageLibraryBottomSheetState extends State<ImageLibraryBottomSheet> {
               target: xFile.path, directory: await FileServices.libraryPath())
           .then((value) {
         if (value != null) {
-
-
-          widget.action(path.basename(value.path));
-
+          widget.action(path.relative(value.path));
         }
         Navigator.of(context).pop();
       });
@@ -72,13 +70,12 @@ class _ImageLibraryBottomSheetState extends State<ImageLibraryBottomSheet> {
               target: xFile.path, directory: await FileServices.libraryPath())
           .then((value) {
         if (value != null) {
-          widget.action(path.basename(value.path));
+          widget.action(path.relative(value.path));
         }
         Navigator.of(context).pop();
       });
     }
   }
-
 
   final List<String> _existingImages = [];
 
@@ -110,23 +107,23 @@ class _ImageLibraryBottomSheetState extends State<ImageLibraryBottomSheet> {
                 ),
                 Row(
                   children: [
-                    if (Platform.isAndroid || Platform.isIOS)
+                    if (Platform.isAndroid)
                       IconButton(
-                        icon: const Icon(Icons.upload),
-                        iconSize: 24,
-                        color: const Color(0xFF888888),
-                        onPressed: pickFromGallery,
-                      ),
-                    if (Platform.isAndroid || Platform.isIOS)
-                      IconButton(
-                        icon: const Icon(Icons.camera_alt),
+                        icon: Icon(UIcons.regularStraight.camera),
                         iconSize: 24,
                         color: const Color(0xFF888888),
                         onPressed: pickFromCamera,
                       ),
-                    if (!Platform.isAndroid && !Platform.isIOS)
+                    if (Platform.isAndroid)
                       IconButton(
-                        icon: const Icon(Icons.upload),
+                        icon: Icon(UIcons.regularStraight.gallery),
+                        iconSize: 24,
+                        color: const Color(0xFF888888),
+                        onPressed: pickFromGallery,
+                      ),
+                    if (Platform.isIOS)
+                      IconButton(
+                        icon: Icon(UIcons.regularStraight.upload),
                         iconSize: 24,
                         color: const Color(0xFF888888),
                         onPressed: pickFromFile,
@@ -156,11 +153,11 @@ class _ImageLibraryBottomSheetState extends State<ImageLibraryBottomSheet> {
                     runSpacing: 12.0,
                     children: [
                       for (var each in _existingImages)
-                        if(File(each).existsSync())
+                        if (File(each).existsSync())
                           ImageContainer(
                               screenWidth: MediaQuery.of(context).size.width,
                               onTap: () {
-                                widget.action(path.basename(each));
+                                widget.action(path.relative(each));
                                 Navigator.pop(context);
                               },
                               onLongPress: () async {

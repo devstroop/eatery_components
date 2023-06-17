@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:eatery_components/bottomsheets/upload_file.bottomsheet.dart';
 import 'package:eatery_services/eatery_services.dart';
 import 'package:flutter/material.dart';
-import '../borders/dotted_border/dotted_border.dart';
 import '../bottomsheets/image_library.bottomsheet.dart';
 import 'package:uicons/uicons.dart';
 
@@ -36,60 +35,63 @@ class _UploadButtonState extends State<UploadButton> {
     super.initState();
   }
 
+  void onUploadPressed() => showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+        ),
+      ),
+      builder: (context) => widget.uploadType == UploadType.image
+          ? ImageLibraryBottomSheet(context, (path) {
+              filePath = path;
+              if (widget.onChanged != null) {
+                widget.onChanged!(path);
+              }
+              setState(() {});
+            })
+          : UploadFileBottomSheet(context, (path) {
+              filePath = path;
+              if (widget.onChanged != null) {
+                widget.onChanged!(path);
+              }
+              setState(() {});
+            }));
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: const Color(0xFFF0F0F0),
-          border: Border.all(color: const Color(0xFFF0F0F0), width: 1)),
-      child: InkWell(
-        onTap: () => showModalBottomSheet(
-            context: context,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(24),
-                topRight: Radius.circular(24),
-                bottomLeft: Radius.circular(0),
-                bottomRight: Radius.circular(0),
-              ),
-            ),
-            builder: (context) => widget.uploadType == UploadType.image
-                ? ImageLibraryBottomSheet(context, (path) {
-                    filePath = path;
-                    if (widget.onChanged != null) {
-                      widget.onChanged!(path);
-                    }
-                    setState(() {});
-                  })
-                : UploadFileBottomSheet(context, (path) {
-                    filePath = path;
-                    if (widget.onChanged != null) {
-                      widget.onChanged!(path);
-                    }
-                    setState(() {});
-                  })),
+    return Material(
+      elevation: 0,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            color: const Color(0xFFF0F0F0),
+            border: Border.all(color: const Color(0xFFF0F0F0), width: 1)),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                DottedBorder(
-                  borderType: BorderType.rRect,
-                  dashPattern: const [6, 3],
-                  radius: const Radius.circular(12),
-                  color: const Color(0xFF576060),
-                  strokeWidth: 2,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(9)),
-                    child: SizedBox(
-                      width: 84,
-                      height: 84,
-                      child: Icon(
-                        UIcons.regularStraight.upload,
-                        size: 18,
+                Material(
+                  elevation: 2,
+                  borderRadius: BorderRadius.circular(12),
+                  child: InkWell(
+                    onTap: onUploadPressed,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(9)),
+                      child: SizedBox(
+                        width: 84,
+                        height: 84,
+                        child: Icon(
+                          UIcons.regularStraight.camera,
+                          size: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -183,7 +185,7 @@ class _UploadButtonState extends State<UploadButton> {
                                     color: const Color(0xFFB63A3A),
                                   ),
                                   child: Icon(
-                                    UIcons.regularStraight.exit,
+                                    UIcons.regularStraight.minus_small,
                                     size: 12,
                                     color: Colors.white,
                                   ),
