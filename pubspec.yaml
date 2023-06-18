@@ -21,12 +21,12 @@ dependencies:
     # path: "../eatery_db"
     git:
       url: 'https://github.com/devstroop/eatery_db.git'
-      ref: '97e192a'
+      ref: 'main'
   eatery_services:
     # path: "../eatery_services"
     git:
       url: 'https://github.com/devstroop/eatery_services.git'
-      ref: 'ee373f6'
+      ref: 'main'
 
 dev_dependencies:
   flutter_test:
