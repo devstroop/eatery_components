@@ -13,7 +13,6 @@ class PageTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 20),
         Text(
           title,
           style: const TextStyle(

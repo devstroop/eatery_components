@@ -24,8 +24,7 @@ dependencies:
     # git:
       # url: 'https://github.com/devstroop/eatery_db.git'
       # ref: 'main'
-  eatery_services:
-    path: "../eatery_services"
+  # (archived) eatery_services:
     # git:
       # url: 'https://github.com/devstroop/eatery_services.git'
       # ref: 'main'
