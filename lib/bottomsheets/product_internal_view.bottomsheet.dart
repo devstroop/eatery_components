@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:eatery_services/eatery_services.dart';
-import 'package:flutter/material.dart';
-import 'package:eatery_db/models/product/product.dart';
 import 'package:eatery_db/eatery_db.dart';
+import 'package:flutter/material.dart';
 
 import '../buttons/primary.button.dart';
 import '../titles/page.title.dart';
@@ -43,10 +42,13 @@ class _ProductInternalViewBottomsheetState
               PageTitle(
                   title: widget.product.name,
                   subtitle: widget.product.categoryId != null
-                      ? EateryDB().productCategoryBox().values.singleWhere((element) => element.id == widget.product.categoryId).name
+                      ? EateryDB.instance.productCategoryBox.values
+                          .singleWhere((element) =>
+                              element.id == widget.product.categoryId)
+                          .name
                       : 'Uncategorized'),
               Switch(
-                activeColor: widget.color,
+                  activeColor: widget.color,
                   value: widget.product.isActive,
                   onChanged: (value) async {
                     widget.product.isActive = value;
@@ -88,9 +90,10 @@ class _ProductInternalViewBottomsheetState
             Text(
               widget.product.description!,
               style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF888888),),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF888888),
+              ),
             ),
           if (widget.product.description != null) const SizedBox(height: 8.0),
           Row(

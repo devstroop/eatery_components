@@ -1,14 +1,15 @@
-import 'package:eatery_db/models/product/food_type.dart';
+import 'package:eatery_db/eatery_db.dart';
 import 'package:flutter/material.dart';
 
 class FoodTypeBadge extends StatelessWidget {
-  const FoodTypeBadge({Key? key, required this.foodType, this.backgroundColor}) : super(key: key);
+  const FoodTypeBadge({Key? key, required this.foodType, this.backgroundColor})
+      : super(key: key);
   final FoodType? foodType;
   final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    if(foodType != null){
+    if (foodType != null) {
       if (foodType == FoodType.veg) {
         return Container(
           width: 18,

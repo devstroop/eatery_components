@@ -1,7 +1,7 @@
 import 'package:eatery_components/buttons/primary.button.dart';
 import 'package:eatery_components/titles/page.title.dart';
+import 'package:eatery_db/eatery_db.dart';
 import 'package:flutter/material.dart';
-import 'package:eatery_db/models/tax/tax_slab.dart';
 
 class TaxSlabBottomsheet extends StatelessWidget {
   const TaxSlabBottomsheet(
