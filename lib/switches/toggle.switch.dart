@@ -6,39 +6,51 @@ class ToggleSwitch extends StatelessWidget {
       this.color,
       required this.options,
       required this.onChange,
-      required this.index, this.nullableValue})
+      required this.index,
+      this.nullableValue,
+      this.height,
+      this.width})
       : super(key: key);
   final Color? color;
   final List<String> options;
   final int? index;
   final Function(int? index) onChange;
   final String? nullableValue;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
+    double height = this.height ?? 72;
+    double width = this.width ?? 200;
     return Container(
-      padding: const EdgeInsets.all(5.0),
+      height: height,
+      width: width,
+      padding: const EdgeInsets.all(6.0),
       decoration: const BoxDecoration(
           color: Color(0xFFE9E9EA),
           borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
+            Radius.circular(12.0),
           )),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if(nullableValue != null)
+          if (nullableValue != null)
             InkWell(
               onTap: () => onChange(null),
               child: AnimatedContainer(
+                height: height - 12,
+                width: width / 2 - 12,
                 decoration: BoxDecoration(
                     color: index == null ? Colors.grey : Colors.transparent,
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(8.0),
+                      Radius.circular(12.0),
                     )),
-                margin: const EdgeInsets.only(right: 5.0),
-                duration: const Duration(milliseconds: 50),
+                margin: const EdgeInsets.only(right: 6.0),
+                duration: const Duration(milliseconds: 100),
                 curve: Curves.linear,
-                child: Padding(
+                child: Container(
+                    alignment: Alignment.center,
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
                       nullableValue!,
@@ -53,15 +65,18 @@ class ToggleSwitch extends StatelessWidget {
             InkWell(
               onTap: () => onChange(i),
               child: AnimatedContainer(
+                height: height - 12,
+                width: width / 2 - 12,
                 decoration: BoxDecoration(
                     color: index == i ? color : Colors.transparent,
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(8.0),
+                      Radius.circular(12.0),
                     )),
-                margin: const EdgeInsets.only(right: 5.0),
-                duration: const Duration(milliseconds: 50),
+                margin: const EdgeInsets.only(right: 6.0),
+                duration: const Duration(milliseconds: 100),
                 curve: Curves.linear,
-                child: Padding(
+                child: Container(
+                    alignment: Alignment.center,
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
                       options[i],
