@@ -39,8 +39,8 @@ class ToggleSwitch extends StatelessWidget {
             InkWell(
               onTap: () => onChange(null),
               child: AnimatedContainer(
-                height: height - 12,
-                width: width / 2 - 12,
+                height: height - 6,
+                width: width / 2 - 162,
                 decoration: BoxDecoration(
                     color: index == null ? Colors.grey : Colors.transparent,
                     borderRadius: const BorderRadius.all(
@@ -51,7 +51,7 @@ class ToggleSwitch extends StatelessWidget {
                 curve: Curves.linear,
                 child: Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Text(
                       nullableValue!,
                       style: TextStyle(
@@ -65,25 +65,25 @@ class ToggleSwitch extends StatelessWidget {
             InkWell(
               onTap: () => onChange(i),
               child: AnimatedContainer(
-                height: height - 12,
-                width: width / 2 - 12,
+                height: height - 6,
+                width: width / 2 - 6,
                 decoration: BoxDecoration(
                     color: index == i ? color : Colors.transparent,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(12.0),
                     )),
-                margin: const EdgeInsets.only(right: 6.0),
+                margin: const EdgeInsets.only(right: 0.0),
                 duration: const Duration(milliseconds: 100),
                 curve: Curves.linear,
                 child: Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Text(
                       options[i],
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: index == i ? Colors.white : null,
-                          fontSize: 16),
+                          fontSize: 14),
                     )),
               ),
             ),
