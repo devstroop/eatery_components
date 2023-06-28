@@ -32,8 +32,8 @@ class ToggleSwitch extends StatelessWidget {
           borderRadius: BorderRadius.all(
             Radius.circular(12.0),
           )),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
         children: [
           if (nullableValue != null)
             InkWell(
